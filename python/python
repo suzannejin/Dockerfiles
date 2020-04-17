@@ -5,7 +5,7 @@ LABEL maintainer="Suzanne Jin <suzanne.jin@crg.es>"
 WORKDIR /usr/src/app
 
 RUN git clone https://github.com/suzannejin/Dockerfiles.git && /
-    pip install --no-cache-dir -r Dockerfiles/python/requirements-3.7.2.txt
+    pip install --no-cache-dir -r Dockerfiles/python/requirements.txt
 
 
 ENTRYPOINT[ "python" ]

@@ -1,0 +1,12 @@
+Keras==2.3.1
+numpy==1.17.4
+pandas==1.0.1
+scipy==1.4.1
+
+bio
+biopython
+ipython
+Markdown
+matplotlib
+plotly
+PyYAML
