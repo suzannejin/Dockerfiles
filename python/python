@@ -16,4 +16,7 @@ RUN apt-get update && apt-get install r-base && \
     R -e install.packages(c('repr', 'IRdisplay', 'IRkernel'), type = 'source') && \
     R -e IRkernel::installspec()
 
+# Install Jupyter Bash kernel
+RUN pip install bash_kernel && python -m bash_kernel.install
+
 ENTRYPOINT [ "python" ]
