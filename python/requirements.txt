@@ -11,4 +11,5 @@ plotly==4.6.0
 pyYAML==5.3.1
 scipy==1.4.1
 seaborn==0.10.0
+setuptools==41.0.0
 tensorflow==1.15.2
