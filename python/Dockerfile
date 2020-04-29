@@ -8,9 +8,6 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/suzannejin/Dockerfiles.git && \
     pip install --no-cache-dir -r Dockerfiles/python/requirements.txt
 
-# Update Jupyter notebook
-RUN apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev jupyter-core jupyter-client
-
 # Install R & IRkernel 
 RUN apt-get update && apt-get install r-base && \
     R -e install.packages('IRkernel') && \
