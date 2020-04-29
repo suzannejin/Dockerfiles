@@ -13,7 +13,7 @@ RUN apt-get install libzmq3-dev libcurl4-openssl-dev libssl-dev jupyter-core jup
 
 # Install R & IRkernel 
 RUN apt-get update && apt-get install r-base && \
-    R -e install.packages(c('repr', 'IRdisplay', 'IRkernel'), type = 'source') && \
+    R -e install.packages('IRkernel') && \
     R -e IRkernel::installspec()
 
 # Install Jupyter Bash kernel
