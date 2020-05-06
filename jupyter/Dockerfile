@@ -1,7 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=datascience-notebook
-FROM $BASE_CONTAINER
+FROM datascience-notebook:latest
 
 LABEL maintainer="Suzanne Jin <suzanne.jin@crg.eu>"
 
