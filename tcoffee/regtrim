@@ -34,7 +34,7 @@ WORKDIR /usr/src/app
 # Install TCOFFEE
 RUN git clone https://github.com/cbcrg/tcoffee.git tcoffee && \
     cd tcoffee && \
-    git checkout 83095e9d430e83424ccf7f50af82e16c2c3b49d4 && \
+    git checkout 88e58f9c8f4dd0fdaad6b0f32c3186565bfa3cc3 && \
     cd t_coffee/src && \
     make t_coffee && \
     cp t_coffee /bin/.
