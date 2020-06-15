@@ -146,7 +146,7 @@ RUN git clone https://github.com/refresh-bio/FAMSA.git && \
 # Install TCOFFEE
 RUN git clone https://github.com/suzannejin/tcoffee.git tcoffee && \
     cd tcoffee && \
-    git checkout c50b4b43102d95ab7a760f4615077b5a15ef4c2d && \
+    git checkout 17ed580465e8f1b713ff97d592a5589b7d12a71b && \
     #sed -i 's/legacy_blast.pl blastpgp --path $path -d $cl_db -i $infile -o $outfile/legacy_blast.pl blastpgp -i $infile -d $cl_db --path \/bin -o $outfile/' lib/perl/lib/scripts/tc_generic_method.pl && \
     cd t_coffee/src && \
     make t_coffee && \
