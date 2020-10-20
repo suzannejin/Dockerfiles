@@ -32,22 +32,6 @@ RUN wget http://prdownloads.sourceforge.net/argtable/argtable2-13.tar.gz && \
     make install && \
     rm /argtable2-13.tar.gz
 
-# Install Kalign
-RUN mkdir kalign && \
-    cd kalign && \
-    wget http://msa.sbc.su.se/downloads/kalign/current.tar.gz && \
-    tar -zxf current.tar.gz && \
-    ./configure && \
-    make && \
-    cp kalign /bin/. && \
-    rm current.tar.gz 
-
-# Install MUSCLE
-RUN wget http://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz && \
-    tar xfz muscle3.8.31_i86linux64.tar.gz && \
-    cp muscle3.8.31_i86linux64 /bin/muscle && \
-    rm muscle3.8.31_i86linux64.tar.gz &&
-
 # install CLUSTAL OMEGA
 RUN wget http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz && \
     tar -zxf clustal-omega-1.2.4.tar.gz && \
@@ -75,7 +59,9 @@ RUN wget http://www.clustal.org/download/current/clustalw-2.1.tar.gz && \
     rm /clustalw-2.1.tar.gz
 
 #install fasta35 (needed for mafft)
-RUN wget https://faculty.virginia.edu/wrpearson/fasta/fasta33-35/fasta-35.4.12.tar.gz && \
+RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1uHY1Sg6pWv8fQQi61yGy6u5ZvNpZpuo6' \
+    -O fasta-35.4.12.tar.gz && \
+    #wget https://faculty.virginia.edu/wrpearson/fasta/fasta33-35/fasta-35.4.12.tar.gz && \
     tar -zxf fasta-35.4.12.tar.gz && \
     cd fasta-35.4.12/src && \
     make -f ../make/Makefile.linux_sse2 && \
@@ -158,8 +144,9 @@ RUN git clone https://github.com/refresh-bio/FAMSA.git && \
   cp famsa /bin/.
   
 # Install TCOFFEE
-RUN git clone https://github.com/cbcrg/tcoffee.git tcoffee && \
+RUN git clone https://github.com/suzannejin/tcoffee.git tcoffee && \
     cd tcoffee && \
+    git checkout tcs && \
     #sed -i 's/legacy_blast.pl blastpgp --path $path -d $cl_db -i $infile -o $outfile/legacy_blast.pl blastpgp -i $infile -d $cl_db --path \/bin -o $outfile/' lib/perl/lib/scripts/tc_generic_method.pl && \
     cd t_coffee/src && \
     make t_coffee && \
