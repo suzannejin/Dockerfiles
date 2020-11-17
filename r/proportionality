@@ -1,13 +1,27 @@
-FROM rstudio/r-base:bionic
-LABEL maintainer="Suzanne Jin <suzanne.jin@crg.es>"
+FROM debian:jessie
 
-WORKDIR /usr/src/app
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ed \
+      less \
+      vim-tiny \
+      wget \
+      git \
+      build-essential \
+      cmake \
+      curl \
+      libargtable2-0 \
+      ca-certificates \
+      libpng12-0 \
+      default-jdk \
+      valgrind \
+      libpng-dev 
 
-# update
-RUN apt-get update
+RUN apt-get update -y && \
+    apt-get install -y r-base
 
 ## install biocmanager
-R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
+#R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
 
 
 ## install recount2
