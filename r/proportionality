@@ -1,4 +1,4 @@
-FROM rocket/tidyverse:3.6.0
+FROM rocker/tidyverse:3.6.0
 
 ## install biocmanager
 R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
