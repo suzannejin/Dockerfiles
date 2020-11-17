@@ -1,0 +1,43 @@
+FROM rocker/tidyverse:3.6.0
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    less \
+    vim-tiny
+
+## install biocmanager
+RUN R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
+
+## install dependencies for recount2
+RUN R -e BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
+
+## install recount2
+RUN R -e "BiocManager::install('recount')"
+
+# FROM debian:jessie
+
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#       ed \
+#       less \
+#       vim-tiny \
+#       wget \
+#       git \
+#       build-essential \
+#       cmake \
+#       curl \
+#       libargtable2-0 \
+#       ca-certificates \
+#       libpng12-0 \
+#       default-jdk \
+#       valgrind \
+#       libpng-dev \
+#       r-base
+
+
+
+
+# ## install recount2
+
+
+# CMD ["R"]
