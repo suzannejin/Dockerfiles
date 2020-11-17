@@ -3,6 +3,9 @@ FROM rocker/tidyverse:3.6.0
 ## install biocmanager
 RUN R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
 
+## install recount2
+RUN R -e "BiocManager::install('recount')"
+
 # FROM debian:jessie
 
 # RUN apt-get update && \
