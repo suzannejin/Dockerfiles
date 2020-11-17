@@ -1,7 +1,16 @@
 FROM rstudio/r-base:bionic
 LABEL maintainer="Suzanne Jin <suzanne.jin@crg.es>"
 
-
 WORKDIR /usr/src/app
+
+# update
+RUN apt-get update
+
+## install biocmanager
+R -e "install.packages('BiocManager', repos='http://cran.es.r-project.org')"
+
+
+## install recount2
+
 
 CMD ["R"]
