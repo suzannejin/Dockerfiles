@@ -2,7 +2,7 @@
 FROM bioconductor/bioconductor_docker:devel
 
 # install optparse, zcompositions
-RUN R -e "install.packages(c('optparse', 'zCompositions'),  repos='http://cran.es.r-project.org')"
+RUN R -e "install.packages(c('optparse', 'zCompositions', 'doMC'),  repos='http://cran.es.r-project.org')"
 
 # install recount
 RUN R -e "BiocManager::install('recount')"
