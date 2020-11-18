@@ -8,4 +8,5 @@ RUN R -e "install.packages(c('optparse', 'zCompositions', 'doMC'),  repos='http:
 RUN R -e "BiocManager::install('recount')"
 
 # install propr
-RUN R -e "BiocManager::install('propr')"
+# RUN R -e "BiocManager::install('propr')"
+RUN R -e "devtools::install_github('tpq/propr')"
