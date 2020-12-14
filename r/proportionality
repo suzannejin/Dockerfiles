@@ -10,3 +10,7 @@ RUN R -e "BiocManager::install('recount')"
 # install propr
 # RUN R -e "BiocManager::install('propr')"
 RUN R -e "devtools::install_github('tpq/propr')"
+
+# install graflex
+RUN R -e "devtools::install_github('tpq/graflex')"
+RUN R -e "BiocManager::install('org.Hs.eg.db')"
