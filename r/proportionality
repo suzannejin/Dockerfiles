@@ -11,6 +11,10 @@ RUN R -e "BiocManager::install('recount')"
 # RUN R -e "BiocManager::install('propr')"
 RUN R -e "devtools::install_github('tpq/propr')"
 
-# install graflex
+# install graflex and Genome wide annotation for Human database
 RUN R -e "devtools::install_github('tpq/graflex')"
 RUN R -e "BiocManager::install('org.Hs.eg.db')"
+RUN R -e "BiocManager::install('GO.db')"
+
+# install rgl for 3D network plot
+RUN R -e "install.packages('rgl', repos='http://cran.es.r-project.org')"
