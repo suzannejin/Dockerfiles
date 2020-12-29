@@ -1,5 +1,6 @@
 # Docker inheritance
-FROM bioconductor/bioconductor_docker:RELEASE_3_12  
+# Bioconductor version 3.13 (BiocManager 1.30.10)
+FROM bioconductor/bioconductor_docker:devel  
 
 # snapshot date 
 ARG WHEN="2020-12-17"
