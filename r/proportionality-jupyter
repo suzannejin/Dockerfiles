@@ -1,0 +1,87 @@
+# Docker inheritance
+FROM bioconductor/bioconductor_docker:RELEASE_3_12  
+
+# snapshot date 
+ARG WHEN="2020-12-17"
+
+# =============== #
+# INSTALL JUPYTER #
+# =============== #
+
+## Python 3 installations
+RUN apt-get update \
+	&& apt-get install -y software-properties-common \
+	&& add-apt-repository universe \
+	&& apt-get update \
+	&& apt-get -y --no-install-recommends install python3 python3-dev \
+	&& curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py \
+	&& python3 get-pip.py \
+	&& pip3 install wheel \
+	## Install sklearn, pandas, jupyter notebook on python
+	&& pip3 install numpy \
+	sklearn \
+	pandas \
+	pyyaml \
+	cwltool \
+	jupyter \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf get-pip.py
+
+# Install all OS dependencies for fully functional notebook server
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    build-essential \
+    inkscape \
+    libsm6 \
+    libxext-dev \
+    libxrender1 \
+    lmodern \
+    netcat \
+    # ---- nbconvert dependencies ----
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
+    # ----
+    tzdata \
+    unzip \
+    nano-tiny \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install jupyter R kernel
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'uuid', 'digest', 'IRkernel'))" && \
+    R -e "IRkernel::installspec(user = FALSE)"
+
+# Install jupyter bash kernel
+RUN pip3 install bash_kernel && python3 -m bash_kernel.install
+
+
+# =============================================== #
+# INSTALL R PACKAGES FOR PROPORTIONALITY ANALYSIS #
+# =============================================== #
+
+# install CRAN packages
+#   optparse : manage input parameters
+#   zCompositions : manage zeros
+#   doMC : enable parallelization
+#   rgl : 3D network plot
+#   edgeR : DE and GSEA analysis
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl'))"
+
+# install recount
+RUN R -e "BiocManager::install('recount')"
+
+# install propr
+# RUN R -e "BiocManager::install('propr')"
+RUN R -e "devtools::install_github('tpq/propr@2bd7c44bf59eaac6b4d329d38afd40ac83e2089a')"
+
+# install graflex and Genome wide annotation for Human database
+RUN R -e "devtools::install_github('tpq/graflex@bd50bb7e1ee1691b9fb3af8834924416a543fa51')"
+RUN R -e "BiocManager::install('org.Hs.eg.db')"
+RUN R -e "BiocManager::install('GO.db')"
+
+# install edgeR
+RUN R -e "BiocManager::install('edgeR')"
