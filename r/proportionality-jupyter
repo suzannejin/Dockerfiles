@@ -85,3 +85,6 @@ RUN R -e "BiocManager::install('GO.db')"
 
 # install edgeR
 RUN R -e "BiocManager::install('edgeR')"
+
+# install heatmap packages
+RUN R -e "BiocManager::install(c('ComplexHeatmap', 'd3heatmap'))"
