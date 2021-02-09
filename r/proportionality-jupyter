@@ -4,6 +4,42 @@ FROM bioconductor/bioconductor_docker:RELEASE_3_12
 # snapshot date 
 ARG WHEN="2020-12-17"
 
+# =============================================== #
+# INSTALL R PACKAGES FOR PROPORTIONALITY ANALYSIS #
+# =============================================== #
+
+# install CRAN packages
+#   optparse : manage input parameters
+#   zCompositions : manage zeros
+#   doMC : enable parallelization
+#   rgl : 3D network plot
+#   edgeR : DE and GSEA analysis
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl'))"
+
+# install recount
+RUN R -e "BiocManager::install('recount')"
+
+# install propr
+# RUN R -e "BiocManager::install('propr')"
+RUN R -e "devtools::install_github('tpq/propr@2bd7c44bf59eaac6b4d329d38afd40ac83e2089a')"
+
+# install graflex and Genome wide annotation for Human database
+RUN R -e "devtools::install_github('tpq/graflex@bd50bb7e1ee1691b9fb3af8834924416a543fa51')"
+RUN R -e "BiocManager::install('org.Hs.eg.db')"
+RUN R -e "BiocManager::install('GO.db')"
+
+# install edgeR
+RUN R -e "BiocManager::install('edgeR')"
+
+# install plot packages
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('venn', 'Vennerable','tidyverse','UpSetR'))"
+RUN R -e "BiocManager::install('ComplexHeatmap')"
+RUN R -e "devtools::install_github('krassowski/complex-upset')"
+
 # =============== #
 # INSTALL JUPYTER #
 # =============== #
@@ -55,36 +91,3 @@ RUN R -e "options(repos = \
 
 # Install jupyter bash kernel
 RUN pip3 install bash_kernel && python3 -m bash_kernel.install
-
-
-# =============================================== #
-# INSTALL R PACKAGES FOR PROPORTIONALITY ANALYSIS #
-# =============================================== #
-
-# install CRAN packages
-#   optparse : manage input parameters
-#   zCompositions : manage zeros
-#   doMC : enable parallelization
-#   rgl : 3D network plot
-#   edgeR : DE and GSEA analysis
-RUN R -e "options(repos = \
-  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
-  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl'))"
-
-# install recount
-RUN R -e "BiocManager::install('recount')"
-
-# install propr
-# RUN R -e "BiocManager::install('propr')"
-RUN R -e "devtools::install_github('tpq/propr@2bd7c44bf59eaac6b4d329d38afd40ac83e2089a')"
-
-# install graflex and Genome wide annotation for Human database
-RUN R -e "devtools::install_github('tpq/graflex@bd50bb7e1ee1691b9fb3af8834924416a543fa51')"
-RUN R -e "BiocManager::install('org.Hs.eg.db')"
-RUN R -e "BiocManager::install('GO.db')"
-
-# install edgeR
-RUN R -e "BiocManager::install('edgeR')"
-
-# install heatmap packages
-RUN R -e "BiocManager::install(c('ComplexHeatmap', 'd3heatmap'))"
