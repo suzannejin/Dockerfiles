@@ -91,3 +91,15 @@ RUN R -e "options(repos = \
 
 # Install jupyter bash kernel
 RUN pip3 install bash_kernel && python3 -m bash_kernel.install
+
+# install jupyter extensions
+# and use useful extensions: Codefolding, ExecuteTime, Highlighter, limit output, Scratchpad, Skip-Traceback, Spellchecker, Table of Content (toc2), Variable inspector
+RUN pip install jupyter_contrib_nbextensions
+RUN pip install jupyter_nbextensions_configurator
+RUN jupyter contrib nbextension install 
+RUN jupyter nbextensions_configurator enable 
+RUN jupyter nbextension enable toc2/main
+RUN jupyter nbextension install https://rawgit.com/jfbercher/small_nbextensions/master/highlighter.zip 
+RUN jupyter nbextension enable highlighter/highlighter
+
+
