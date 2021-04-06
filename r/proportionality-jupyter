@@ -17,7 +17,7 @@ ARG WHEN="2020-12-17"
 #   rgl : 3D network plot
 RUN R -e "options(repos = \
   list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
-  install.packages(c('optparse', 'pkgsearch',, 'dlstats', 'zCompositions', 'doMC', 'rgl'))"
+  install.packages(c('optparse', 'pkgsearch', 'dlstats', 'zCompositions', 'doMC', 'rgl'))"
 
 # install recount
 RUN R -e "BiocManager::install('recount')"
@@ -45,6 +45,16 @@ RUN R -e "devtools::install_github('krassowski/complex-upset')"
 RUN R -e "options(repos = \
   list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
   install.packages(c('precrec', 'PRROC'))"
+
+# install packages to use KEGG databases 
+RUN R -e "BiocManager::install(c('KEGGREST', 'KEGG.db', 'KEGGgraph', 'graphite'))" 
+RUN R -e "install_github('vpalombo/PANEV')"
+
+# install other animal database
+RUN R -e "BiocManager::install('org.Mm.eg.db')"
+
+# allow proper ENSEMBL ID to SYMBOL ID conversion
+RUN R -e "BiocManager::install('EnsDb.Hsapiens.v86')"
 
 
 # =============== #
