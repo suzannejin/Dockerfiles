@@ -28,3 +28,11 @@ RUN R -e "BiocManager::install('GO.db')"
 
 # install edgeR
 RUN R -e "BiocManager::install('edgeR')"
+
+# install packages for ROC curves
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('precrec', 'PRROC'))"
+
+# install packages to use KEGG databases 
+RUN R -e "BiocManager::install(c('KEGGREST', 'KEGG.db', 'KEGGgraph', 'graphite'))" 
