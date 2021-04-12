@@ -12,7 +12,7 @@ ARG WHEN="2020-12-17"
 #   edgeR : DE and GSEA analysis
 RUN R -e "options(repos = \
   list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
-  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl'))"
+  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl', 'this.path'))"
 
 # install recount
 RUN R -e "BiocManager::install('recount')"
