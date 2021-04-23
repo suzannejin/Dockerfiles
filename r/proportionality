@@ -9,10 +9,11 @@ ARG WHEN="2020-12-17"
 #   zCompositions : manage zeros
 #   doMC : enable parallelization
 #   rgl : 3D network plot
-#   edgeR : DE and GSEA analysis
+#   this.path: manage script paths
+#   corpcor, ppcor: compute partial correlation
 RUN R -e "options(repos = \
   list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
-  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl', 'this.path'))"
+  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl', 'this.path', 'corpcor', 'ppcor'))"
 
 # install recount
 RUN R -e "BiocManager::install('recount')"
