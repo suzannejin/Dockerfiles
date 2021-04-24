@@ -19,7 +19,7 @@ RUN R -e "BiocManager::install('recount')"
 
 # install propr
 # RUN R -e "BiocManager::install('propr')"
-RUN R -e "devtools::install_github('tpq/propr@2bd7c44bf59eaac6b4d329d38afd40ac83e2089a')"
+RUN R -e "devtools::install_github('suzannejin/propr@c05a9d31621bc1991b5dcf971d3549e2f13c497c')"
 
 # install graflex and Genome wide annotation for Human database
 RUN R -e "devtools::install_github('tpq/graflex@bd50bb7e1ee1691b9fb3af8834924416a543fa51')"
