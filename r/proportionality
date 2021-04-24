@@ -6,14 +6,13 @@ ARG WHEN="2020-12-17"
 
 # install CRAN packages
 #   optparse : manage input parameters
+#   this.path: manage script paths
 #   zCompositions : manage zeros
 #   doMC : enable parallelization
 #   rgl : 3D network plot
-#   this.path: manage script paths
-#   corpcor, ppcor: compute partial correlation
 RUN R -e "options(repos = \
   list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
-  install.packages(c('optparse', 'zCompositions', 'doMC', 'rgl', 'this.path', 'corpcor', 'ppcor'))"
+  install.packages(c('optparse', 'this.path', 'zCompositions', 'doMC', 'rgl'))"
 
 # install recount
 RUN R -e "BiocManager::install('recount')"
@@ -37,3 +36,9 @@ RUN R -e "options(repos = \
 
 # install packages to use KEGG databases 
 RUN R -e "BiocManager::install(c('KEGGREST', 'KEGG.db', 'KEGGgraph', 'graphite'))" 
+
+# install partial correlation packages
+RUN R -e "options(repos = \
+  list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/${WHEN}/')); \
+  install.packages(c('corpcor', 'ppcor'))"
+RUN R -e "devtools::install_github('kkdey/CorShrink@a9f6ba0a81ed86cd3dbe785b0a239107cb80b0c3')"
